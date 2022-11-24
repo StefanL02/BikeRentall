@@ -21,6 +21,9 @@ public class RentalSystem extends JFrame implements ActionListener {
    ArrayList<Bike> bikes = new ArrayList<>();
    private Bike bike;
 
+   ArrayList<Staff> staffs = new ArrayList<>();
+   private Staff staff;
+
 
 
 
@@ -266,7 +269,7 @@ public class RentalSystem extends JFrame implements ActionListener {
         output.setText("\nDetails:\n ");
 
         if(bikes.size() <1){
-            JOptionPane.showMessageDialog(null,"You need to add bikes to be able to see them","Error", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"You need to add bikes to be able to see them","Error Detected", JOptionPane.INFORMATION_MESSAGE);
         }
         else {
             Iterator<Bike> iterator = bikes.iterator();
@@ -283,6 +286,131 @@ public class RentalSystem extends JFrame implements ActionListener {
 
         }
     }
+
+    public void addStaff(){
+        String PPS;
+        String staffName;
+        String staffSurname;
+        String phone;
+        String gender;
+        String jobType;
+        String [] genderList = {"Male","Female","Transgender","Gender Neutral","Prefer Not To Say"};
+        String [] jobTypeList = {"Full-Time","Part-Time","Summer-Associate","Christmas-Associate"};
+
+        boolean valid;
+        int i;
+
+                PPS = JOptionPane.showInputDialog("Please enter staff PPS Number");
+                valid=false;
+                while(!valid){
+                    if(PPS.length()==9)
+                    {
+                        for(i=0;i<7 && Character.isDigit(PPS.charAt(i));i++)
+
+                            if((PPS.length()==9 && Character.isUpperCase(PPS.charAt(7)) &&
+                                            Character.isUpperCase(PPS.charAt(8))))
+                            {
+                                staffName = JOptionPane.showInputDialog("Please enter name:");
+                                 for(i=0;i<staffName.length()&& (Character.isDigit(staffName.charAt(i)))  && (!Character.isLetter(staffName.charAt(i)));i++);
+                                   if(i<staffName.length())
+                                   {
+                                        staffSurname = JOptionPane.showInputDialog("Please enter surname");
+                                       for(i=0;i<staffSurname.length()&& (Character.isDigit(staffSurname.charAt(i)))  && (!Character.isLetter(staffSurname.charAt(i)));i++);
+                                       if(i<staffSurname.length())
+                                       {
+                                            phone = JOptionPane.showInputDialog("Please enter phone number");
+                                            for (i=0;i<phone.length() && (!Character.isDigit(phone.charAt(i))) && (Character.isLetter(phone.charAt(i)));i++);
+                                            if(i<phone.length())
+                                            {
+
+                                                gender = (String) JOptionPane.showInputDialog(null,"Choose gender from followings: ","Gender",JOptionPane.QUESTION_MESSAGE, null, genderList, genderList[0]);
+                                                jobType = (String) JOptionPane.showInputDialog(null,"Choose job type from followings: ","Job Type",JOptionPane.QUESTION_MESSAGE,null,jobTypeList,jobTypeList[0]);
+
+                                                staff = new Staff (PPS, staffName, staffSurname, phone, gender, jobType);
+                                                staffs.add(staff);
+
+
+
+                                                JOptionPane.showMessageDialog(null, "Staff member" + staff + "\n is added to the list", "Succesful", JOptionPane.INFORMATION_MESSAGE);
+                                                valid = true;
+                                                return;
+
+                                            }
+                                            else phone = JOptionPane.showInputDialog("Phone number must contain only numbers!");
+
+
+                                       }
+                                       else staffSurname = JOptionPane.showInputDialog("Invalid Surname! Surname must contain only letters");
+
+
+
+
+                                   }
+                                   else staffName = JOptionPane.showInputDialog("Invalid Name! Name must contain only letters");
+                                   continue;
+
+
+
+                            }
+                        else  PPS = JOptionPane.showInputDialog("Invalid PPS Number. Please Try again");
+
+                    }
+                 else   PPS = JOptionPane.showInputDialog("Invalid!Please enter staff PPS Number");
+                }
+
+
+
+    }
+
+
+    public void removeStaff(){
+
+        JComboBox <String> staffList = new JComboBox<>();
+
+        for(Staff s: staffs){
+            staffList.addItem(s.getStaffSurname());
+
+        }
+
+        JOptionPane.showMessageDialog(null,"Select Staff to be removed","Remove Staff",JOptionPane.INFORMATION_MESSAGE );
+
+        JOptionPane.showMessageDialog(null,staffList,"Remove Staff",JOptionPane.INFORMATION_MESSAGE);
+
+        int selected = staffList.getSelectedIndex();
+
+        staffs.remove(selected);
+        JOptionPane.showMessageDialog(null,"Staff Removed","Successfully removed",JOptionPane.INFORMATION_MESSAGE);
+
+
+    }
+
+    public void listStaff() {
+
+        JComboBox<String> staffCombo = new JComboBox<>();
+        JTextArea output = new JTextArea();
+
+        output.setText("\nDetails:\n ");
+
+        if (staffs.size() < 1) {
+            JOptionPane.showMessageDialog(null, "No staff available, add new staff to list them", "Error Detected", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            Iterator<Staff> iterator = staffs.iterator();
+
+            while (iterator.hasNext()) {
+                staffCombo.addItem(iterator.next().getStaffSurname());
+            }
+
+            JOptionPane.showMessageDialog(null, staffCombo, "Select Bike for details", JOptionPane.PLAIN_MESSAGE);
+
+            int selected = staffCombo.getSelectedIndex();
+            output.append(staffs.get(selected).toString());
+            JOptionPane.showMessageDialog(null, output, "Bike details", JOptionPane.PLAIN_MESSAGE);
+
+
+        }
+    }
+
+
 
 
 
@@ -304,8 +432,23 @@ public class RentalSystem extends JFrame implements ActionListener {
           listBike();
         }
 
+        else if (menuOption.equals("Add Staff")){
+          addStaff();
+        }
+
+        else if(menuOption.equals("Remove Staff")){
+            removeStaff();
+        }
+
+        else if(menuOption.equals("List Staff")){
+            listStaff();
+        }
 
 }
+
+
+
+
     public void saveFiles() throws IOException {
 
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("bikes.dat"));

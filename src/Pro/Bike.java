@@ -55,9 +55,9 @@ public class Bike implements Serializable {
 
     @Override
     public String toString() {
-            return " Category: " + getCategory() +
-                    "\n Bike: " + getBikeManufacturer() +
-                    "\n Description: " + getDescription() +
-                    "\n Price: " + getPrice();
+            return  "Category: " + getCategory() +
+                    "\nBike: " + getBikeManufacturer() +
+                    "\nDescription: " + getDescription() +
+                    "\nPrice: " + getPrice();
     }
 }
