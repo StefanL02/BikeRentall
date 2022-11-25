@@ -53,7 +53,7 @@ public class RentalSystem extends JFrame implements ActionListener {
         menuBar.add(bikeMenu);
         menuBar.add(salesMenu);
 
-        setIconImage(new ImageIcon(getClass().getResource("rentlogo.jpg")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("rentlogo.jpg")).getImage()); //Image source: https://thumbs.dreamstime.com/b/red-bike-rental-logo-map-pin-concept-biking-bycicle-sale-rent-trip-company-mark-repair-isolated-white-background-98150375.jpg
         welcomePanel = new JPanel();
         welcomePanel.add(Box.createVerticalStrut(90));
         welcomePanel.setLayout((new BoxLayout(welcomePanel, BoxLayout.Y_AXIS)));
@@ -67,9 +67,20 @@ public class RentalSystem extends JFrame implements ActionListener {
         welcomePanel.add(Box.createVerticalStrut(80));
         welcomePanel.add(Box.createHorizontalStrut(200));
 
+
+        /*******************************************************************
+         *Title: How to center a JFrame on screen
+         *Author: MadProgrammer
+         *Site owner/sponsor: stackoverflow.com
+         *Date: Mar 4 2014
+         *Code Version: February 2022
+         *Availability: http://stackoverflow.com/questions/22162398/how-to-set-a-background-picture-in-jpanel (Accessed: 16/11/2016)
+         *Modified: Code refactored
+         *******************************************************************/
+
         try {
             imageLabel = new JLabel();
-            imageLabel.setIcon(new ImageIcon(getClass().getResource("background.png")));
+            imageLabel.setIcon(new ImageIcon(getClass().getResource("background.png"))); //Image source: https://st2.depositphotos.com/4403291/6970/v/600/depositphotos_69708149-stock-illustration-trendy-flat-bike-logo.jpg
 
             imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             welcomePanel.add(imageLabel);
@@ -178,7 +189,7 @@ public class RentalSystem extends JFrame implements ActionListener {
 
             public void windowOpened(WindowEvent e){
 
-                JOptionPane.showMessageDialog(null,"Welcome to our shop", "Message",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Welcome back to the system", "Message",JOptionPane.INFORMATION_MESSAGE);
             }
 
         });
@@ -220,7 +231,7 @@ public class RentalSystem extends JFrame implements ActionListener {
                                 bike = new Bike(category, bikeManufacturer, description, price);
                                 bikes.add(bike);
 
-                                JOptionPane.showMessageDialog(null, "Bike: " + bike + "\n is added to the list", "Succesful", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Bike: " + bike + "\n is added to the list", "Successful", JOptionPane.INFORMATION_MESSAGE);
                                 valid = true;
                                 return;
 
@@ -258,7 +269,7 @@ public class RentalSystem extends JFrame implements ActionListener {
         int selected = bikeList.getSelectedIndex();
 
         bikes.remove(selected);
-        JOptionPane.showMessageDialog(null, "Bike removed", "Succesfully removed", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Bike removed", "Successfully removed", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -328,7 +339,7 @@ public class RentalSystem extends JFrame implements ActionListener {
                                     staffs.add(staff);
 
 
-                                    JOptionPane.showMessageDialog(null, "Staff member" + staff + "\n is added to the list", "Succesful", JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(null, "Staff member" + staff + "\n is added to the list", "Successful", JOptionPane.INFORMATION_MESSAGE);
                                     valid = true;
                                     return;
 
@@ -450,7 +461,7 @@ public class RentalSystem extends JFrame implements ActionListener {
         String menuOption = e.getActionCommand();
 
 
-        // if(menuOption.equals ("Add Bike") || e.getSource().equals()
+
         if (menuOption.equals("Add Bike")) {
             addBike();
         } else if (menuOption.equals("Remove Bike")) {
@@ -487,6 +498,7 @@ public class RentalSystem extends JFrame implements ActionListener {
         oos.close();
 
     }
+
 
 
     public void openFiles() {
@@ -537,7 +549,7 @@ public class RentalSystem extends JFrame implements ActionListener {
 
 
 
-        } //these individual catch clauses added by JB, replacing a single "Exception" catch clause
+        }
         catch (ClassNotFoundException cce) {
             JOptionPane.showMessageDialog(null, "Class of object deserialised not a match for anything used in this application", "Error", JOptionPane.ERROR_MESSAGE);
             cce.printStackTrace();
